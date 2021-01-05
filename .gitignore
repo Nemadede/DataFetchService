@@ -2,3 +2,4 @@ resources/
 hibernate.cfg.xml
 target/
 test/
+Queries.java
