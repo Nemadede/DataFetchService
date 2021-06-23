@@ -15,6 +15,7 @@ public class Queue {
     private int count;
 
     private static volatile Queue queueInstance;
+
     private Queue(){}
 
     public static Queue getInstance(){

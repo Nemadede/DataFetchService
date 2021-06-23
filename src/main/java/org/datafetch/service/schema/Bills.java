@@ -11,10 +11,13 @@ import java.util.Date;
 @Table(name="bill")
 public class Bills {
 
-    @Id
-    @Column(name="id", nullable = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
     private User user;
 
@@ -85,32 +88,19 @@ public class Bills {
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "Bill{" +
-                "id=" + id +
-                ", vendorRef=" + vendorRef +
-                ", line=" + line +
-                ", syncToken='" + syncToken + '\'' +
-                ", currencyRef=" + currencyRef +
-                ", txnDate=" + txnDate +
-                ", apAccountRef=" + apAccountRef +
-                ", salesTermRef=" + salesTermRef +
-                ", linkedTxn=" + linkedTxn +
-                ", globalTaxCalculation='" + globalTaxCalculation + '\'' +
-                ", totalAmt=" + totalAmt +
-                ", transactionLocationType='" + transactionLocationType + '\'' +
-                ", dueDate=" + dueDate +
-                ", metaData=" + metaData +
-                ", docNumber='" + docNumber + '\'' +
-                ", privateNote='" + privateNote + '\'' +
-                ", txnTaxDetail=" + txnTaxDetail +
-                ", exchangeRate=" + exchangeRate +
-                ", departmentRef=" + departmentRef +
-                ", includeInAnnualTPAR=" + includeInAnnualTPAR +
-                ", homeBalance=" + homeBalance +
-                ", recurDataRef=" + recurDataRef +
-                ", balance=" + balance +
-                '}';
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
     }
 }

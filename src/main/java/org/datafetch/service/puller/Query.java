@@ -18,7 +18,6 @@ import org.datafetch.service.utils.ReadPropertyFile;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.concurrent.Callable;
 
 public class Query implements Runnable {
 
@@ -81,7 +80,6 @@ public class Query implements Runnable {
     }
 
     private void processResponse(QueryResult queryResult){
-        ArrayList<Object> objectList = new ArrayList<>();
         for (Object q: queryResult.getEntities()){
             Gson gson = new Gson();
             String jsonString = gson.toJson(q);
@@ -91,73 +89,97 @@ public class Query implements Runnable {
     }
 
     private void switchModels( String data){
-        System.out.println("switching Models ---------------- " + data );
 
         Gson gson = new Gson();
+        CompositeId compositeId = new CompositeId();
+
+        compositeId.setUser_id(user.getId());
         switch (modelName){
             case "Account":
                 Accounts account = gson.fromJson(data, Accounts.class);
+                compositeId.setId(account.getId());
                 account.setUser(user);
+                account.setCompositeId(compositeId);
                 queue.enqueue(account);
                 break;
 
             case "Bill":
                 Bills bill = gson.fromJson(data, Bills.class);
                 bill.setUser(user);
+                compositeId.setId(bill.getId());
+                bill.setCompositeId(compositeId);
                 queue.enqueue(bill);
                 break;
 
             case "BillPayment":
                 BillPayments billPayment =gson.fromJson(data, BillPayments.class);
                 billPayment.setUser(user);
+                compositeId.setId(billPayment.getId());
+                billPayment.setCompositeId(compositeId);
                 queue.enqueue(billPayment);
                 break;
 
             case "Customer":
                 Customers customer = gson.fromJson(data, Customers.class);
                 customer.setUser(user);
+                compositeId.setId(customer.getId());
+                customer.setCompositeId(compositeId);
                 queue.enqueue(customer);
                 break;
 
             case "Invoice":
                 Invoices invoice = gson.fromJson(data, Invoices.class);
                 invoice.setUser(user);
+                compositeId.setId(invoice.getId());
+                invoice.setCompositeId(compositeId);
                 queue.enqueue(invoice);
                 break;
 
             case "Payment":
                 Payments payment = gson.fromJson(data, Payments.class);
                 payment.setUser(user);
+                compositeId.setId(payment.getId());
+                payment.setCompositeId(compositeId);
                 queue.enqueue(payment);
                 break;
 
             case "PaymentMethod":
                 PaymentMethods paymentMethod = gson.fromJson(data, PaymentMethods.class);
                 paymentMethod.setUser(user);
+                compositeId.setId(paymentMethod.getId());
+                paymentMethod.setCompositeId(compositeId);
                 queue.enqueue(paymentMethod);
                 break;
 
             case "RefundReceipt":
                 RefundReceipts refundReceipt = gson.fromJson(data, RefundReceipts.class);
                 refundReceipt.setUser(user);
+                compositeId.setId(refundReceipt.getId());
+                refundReceipt.setCompositeId(compositeId);
                 queue.enqueue(refundReceipt);
                 break;
 
             case "SalesReceipt":
                 SalesReceipts salesReceipt = gson.fromJson(data, SalesReceipts.class);
                 salesReceipt.setUser(user);
+                compositeId.setId(salesReceipt.getId());
+                salesReceipt.setCompositeId(compositeId);
                 queue.enqueue(salesReceipt);
                 break;
 
             case "Vendor":
                 Vendors vendor = gson.fromJson(data, Vendors.class);
                 vendor.setUser(user);
+                compositeId.setId(vendor.getId());
+                vendor.setCompositeId(compositeId);
                 queue.enqueue(vendor);
                 break;
 
             case "VendorCredit":
                 VendorCredits vendorCredit = gson.fromJson(data, VendorCredits.class);
                 vendorCredit.setUser(user);
+                compositeId.setId(vendorCredit.getId());
+                vendorCredit.setCompositeId(compositeId);
                 queue.enqueue(vendorCredit);
                 break;
 

@@ -51,8 +51,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, SchedulerException {
         final HttpServer server = startServer();
-//        new Queries().testQuery(1);
-//        new PullService().runPullService(1);
+
         System.out.println(String.format("Jersey app started with WADL available at "
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
         System.in.read();

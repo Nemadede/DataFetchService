@@ -11,12 +11,14 @@ import java.util.Date;
 @Table(name="refundreceipt")
 public class RefundReceipts extends BaseEntity {
 
-    @Id
-    @Column(name="id", nullable = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Type(type = "json")
@@ -134,4 +136,19 @@ public class RefundReceipts extends BaseEntity {
         this.user = user;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
+    }
 }

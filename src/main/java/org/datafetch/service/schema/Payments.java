@@ -11,9 +11,13 @@ import java.util.Date;
 @Table(name = "payment")
 public class Payments extends BaseEntity{
 
-    @Id
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
     private User user;
 
@@ -80,5 +84,21 @@ public class Payments extends BaseEntity{
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
     }
 }

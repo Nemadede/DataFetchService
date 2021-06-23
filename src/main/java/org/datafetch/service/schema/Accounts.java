@@ -13,10 +13,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name="account")
 public class Accounts extends BaseEntity {
 
-    @Id
-    @Column(name="id", nullable = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
     private User user;
 
@@ -37,14 +40,6 @@ public class Accounts extends BaseEntity {
     private String accountSubType;
     private Float currentBalance;
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Type(type = "json")
     @Column(columnDefinition = "json")
     private Object currencyRef;
@@ -62,28 +57,28 @@ public class Accounts extends BaseEntity {
     private Object taxCodeRef;
 
 
-    @Override
-    public String toString() {
-        return "Accounts{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", syncToken='" + syncToken + '\'' +
-                ", acctNum='" + acctNum + '\'' +
-                ", description='" + description + '\'' +
-                ", active=" + active +
-                ", subAccount=" + subAccount +
-                ", classification='" + classification + '\'' +
-                ", fullyQualifiedName='" + fullyQualifiedName + '\'' +
-                ", txnLocationType='" + txnLocationType + '\'' +
-                ", accountType='" + accountType + '\'' +
-                ", currentBalanceWithSubAccounts=" + currentBalanceWithSubAccounts +
-                ", accountAlias='" + accountAlias + '\'' +
-                ", accountSubType='" + accountSubType + '\'' +
-                ", currentBalance=" + currentBalance +
-                ", currencyRef=" + currencyRef +
-                ", parentRef=" + parentRef +
-                ", metaData=" + metaData +
-                ", taxCodeRef=" + taxCodeRef +
-                '}';
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

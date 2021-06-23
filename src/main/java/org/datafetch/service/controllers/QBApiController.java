@@ -42,7 +42,7 @@ public class QBApiController {
     }
 
     public Map<String, String> getBearerToken(String authCode) throws OAuthException {
-        Map<String, String> response = new HashMap<String, String>();
+        Map<String, String> response = new HashMap<>();
 
         try {
 

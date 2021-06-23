@@ -11,10 +11,13 @@ import java.util.Date;
 @Table(name="billpayment")
 public class BillPayments extends BaseEntity{
 
-    @Id
-    @Column(name="id", nullable = false, unique = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
     private User user;
 
@@ -70,28 +73,19 @@ public class BillPayments extends BaseEntity{
         this.user = user;
     }
 
-    @Override
-    public String toString() {
-        return "BillPayment{" +
-                "Id=" + id +
-                ", vendorRef=" + vendorRef +
-                ", line=" + line +
-                ", totalAmt=" + totalAmt +
-                ", payType='" + payType + '\'' +
-                ", syncToken='" + syncToken + '\'' +
-                ", currencyRef=" + currencyRef +
-                ", docNumber='" + docNumber + '\'' +
-                ", privateNote='" + privateNote + '\'' +
-                ", txnDate=" + txnDate +
-                ", exchangeRate=" + exchangeRate +
-                ", apAccountRef=" + apAccountRef +
-                ", departmentRef=" + departmentRef +
-                ", transactionLocationType='" + transactionLocationType + '\'' +
-                ", processBillPayment=" + processBillPayment +
-                ", metaData=" + metaData +
-                ", checkPayment='" + checkPayment + '\'' +
-                ", creditCardPayment='" + creditCardPayment + '\'' +
-                '}';
+    public Integer getId() {
+        return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
+    }
 }

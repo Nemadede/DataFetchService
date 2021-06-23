@@ -18,6 +18,7 @@ public class Schedule {
         }
         return schedule;
     }
+
     public void setScheduler() throws SchedulerException {
         this.myScheduler = schedulerFactory.getScheduler();
     }

@@ -13,12 +13,14 @@ import java.util.Date;
 @Table(name="customer")
 public class Customers extends BaseEntity implements Serializable {
 
-    @Id
-    @Column(name="id", nullable = false, unique = false)
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
-    @Id
     private User user;
 
     private String syncToken;
@@ -132,5 +134,21 @@ public class Customers extends BaseEntity implements Serializable {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
     }
 }

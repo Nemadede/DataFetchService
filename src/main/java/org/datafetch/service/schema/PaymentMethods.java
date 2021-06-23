@@ -10,9 +10,13 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "paymentmethod")
 public class PaymentMethods extends BaseEntity {
 
-    @Id
+    @Column(name = "id", insertable = false, updatable = false)
     private Integer id;
 
+    @EmbeddedId
+    private CompositeId compositeId;
+
+    @MapsId(value = "user_id")
     @ManyToOne
     private User user;
 
@@ -31,5 +35,21 @@ public class PaymentMethods extends BaseEntity {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public CompositeId getCompositeId() {
+        return compositeId;
+    }
+
+    public void setCompositeId(CompositeId compositeId) {
+        this.compositeId = compositeId;
     }
 }
